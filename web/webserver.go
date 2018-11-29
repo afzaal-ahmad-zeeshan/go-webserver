@@ -4,7 +4,11 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	"../handlers"
 )
+
+var server *http.Server
 
 // InitServer starts the web server and adds the specific handlers to it.
 func InitServer(address string) {
@@ -20,17 +24,32 @@ func InitServer(address string) {
 		address = ":5555"
 	}
 
-	myHandler := HTTPHandler{}
-	server := &http.Server{
+	requestHandler := HTTPHandler{}
+	requestHandler.AttachHandler("/person", handlers.PersonAPIHandler{})
+	server = &http.Server{
 		Addr:           address,
-		Handler:        myHandler,
+		Handler:        requestHandler,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
-	fmt.Println("Handling HTTP traffic at localhost:5555")
+}
+
+// StartServer starts the web service provided it has been configured.
+func StartServer() error {
+	fmt.Println("Handling HTTP traffic at localhost" + server.Addr)
 	problem := server.ListenAndServe()
+
+	// Handle the problems
 	if problem != nil {
+
+		// Log the problem
 		fmt.Println("Server had a problem starting.\n", problem.Error())
+
+		// Return it so that other functions can handle it too.
+		return problem
 	}
+
+	// Return a nil, showing there was no problem with the server whatsoever.
+	return nil
 }

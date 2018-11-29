@@ -21,5 +21,11 @@ func main() {
 	}()
 
 	// Start the web server.
-	web.InitServer(":5555")
+	web.InitServer(":5554")
+	problem := web.StartServer()
+
+	// Perhaps a problem was caused.
+	if problem != nil {
+		fmt.Println(problem)
+	}
 }
