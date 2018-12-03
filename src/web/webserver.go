@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"../handlers"
+	"../handlers/api"
 )
 
 var server *http.Server
@@ -25,7 +26,11 @@ func InitServer(address string) {
 	}
 
 	requestHandler := HTTPHandler{}
-	requestHandler.AttachHandler("/person", handlers.PersonAPIHandler{})
+	requestHandler.AttachHandler("/", handlers.HomeHandler{})
+	requestHandler.AttachHandler("/person", api.PersonAPIHandler{})
+
+	requestHandler.AttachFileSystem(".")
+
 	server = &http.Server{
 		Addr:           address,
 		Handler:        requestHandler,
@@ -45,11 +50,8 @@ func StartServer() error {
 
 		// Log the problem
 		fmt.Println("Server had a problem starting.\n", problem.Error())
-
-		// Return it so that other functions can handle it too.
-		return problem
 	}
 
-	// Return a nil, showing there was no problem with the server whatsoever.
-	return nil
+	// Return it so that other functions can handle it too.
+	return problem
 }

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"../web"
+	"./web"
 )
 
 func main() {

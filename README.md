@@ -5,7 +5,7 @@ A minimal, simple and flexible web server written in Go language.
 Repository contains executables for Windows (**run.bat**) and Linux (**run.sh**), these files have the `go run` commands added and you can run these files to start the web server. 
 
 That code in turn executes the web server package's code to start the web server,  
-```
+``` go
 // Start the web server.
 web.InitServer(":5554")
 problem := web.StartServer()
@@ -15,7 +15,7 @@ problem := web.StartServer()
 This project uses Go's net packages and http packages to provide an interface to HTTP development. The overall structure somewhat is relatable to Node.js' development stack, of modules, routers and request handlers. 
 
 The HTTPHandler of this web server is basically a normal type defined in Go, as,  
-```
+``` go
 type HTTPHandler struct {
     name            string
     requestHandlers map[string]RequestHandler

@@ -1,1 +1,1 @@
-go run ./main/program.go
+go run ./src/program.go

@@ -9,6 +9,12 @@
 *.userosscache
 *.sln.docstates
 
+# For the time being, I am hiding the front-end development with Go
+app/
+
+# .exe
+*.exe
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
