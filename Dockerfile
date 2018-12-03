@@ -1,3 +1,5 @@
-FROM go:1.11.2-alpine
+FROM golang:1.10-alpine3.7
 COPY . . 
-ENTRYPOINT [ "go", "./main/program.go" ]
+
+# I know, compilation is the best way to go, but still I am skipping it for now.
+CMD [ "go", "run", "./src/program.go" ]
